@@ -2,8 +2,11 @@
 
 export(GIFTr)
 export(mcq)
+export(num_q)
+export(short_ans)
 export(tf_q)
 importFrom(glue,glue)
+importFrom(stats,addmargins)
 importFrom(stats,na.omit)
 importFrom(stringr,str_detect)
 importFrom(stringr,str_replace)

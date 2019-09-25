@@ -2,11 +2,53 @@
 % Please edit documentation in R/mcq.R
 \name{mcq}
 \alias{mcq}
-\title{Title}
+\title{Create GIFT File with Single & Multiple Answers MCQs From Spreadsheet}
 \usage{
 mcq(data, questions, answers, categories = NULL, question_names = NULL,
-  output, make_answer = F, ...)
+  output, make_answer = FALSE)
+}
+\arguments{
+\item{data}{PARAM_DESCRIPTION}
+
+\item{questions}{PARAM_DESCRIPTION}
+
+\item{answers}{PARAM_DESCRIPTION}
+
+\item{categories}{PARAM_DESCRIPTION, Default: NULL}
+
+\item{question_names}{PARAM_DESCRIPTION, Default: NULL}
+
+\item{output}{PARAM_DESCRIPTION}
+
+\item{make_answer}{PARAM_DESCRIPTION, Default: F}
 }
 \description{
-Title
+FUNCTION_DESCRIPTION
+}
+\details{
+DETAILS
+}
+\section{Formating Your Data}{
+ Check the data \code{\link{GIFTrData}} and  \code{\link{GIFTrData_2}} as example for formating your questions.
+
+\subsection{Markdown and HTML Support}{ MOODLE itself supports basic markdown and HTML for questions formating. So when formating your data you can use HTML tags like <sub> and <sup>. Also you can use markdown  **bold** or __bold__ and  *italic* or _italic_ ...etc. However it is better a better practice to avoid using asterisk to avoid confusion with MCQ format.}
+\subsection{Data columns}{The data passed would differ slightly according to question type, however generally you need to have \enumerate{
+\item a column contains question. This cannot contain empty values
+\item answer(s) column(s). This may be multiple columns if you have multiple answers. If you mix single and multiple answer it is better to write the single answer in the first column. If you have \em{only single answer MCQ and NO multiple answer MCQ}, you can set the answers without astrisk in the first column of the answers columns. More details in the vignette and below.
+
+
+
+}
+  }
+}
+
+\examples{
+\dontrun{
+if(interactive()){
+ #EXAMPLE1
+ }
+}
+}
+\seealso{
+\code{\link[GIFTr]{GIFTr}}
 }

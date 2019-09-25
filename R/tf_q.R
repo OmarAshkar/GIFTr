@@ -1,28 +1,26 @@
-#source("R\\dgift.R")
-
-#' Title
-#'
-#' @param data
-#' @param questions
-#' @param answers
-#' @param categories
-#' @param question_names
-#' @param output
-#' @param ...
-#'
-#' @return
-#' @export
-#'
-#' @importFrom glue glue
-#' @importFrom stats na.omit
+#' @title Create GIFT File with True or False Questions From Spreadsheet
+#' @description FUNCTION_DESCRIPTION
+#' @inheritParams num_q
+#' @details DETAILS
 #' @examples
-tf_q <- function(data, questions, answers, categories, question_names = NULL, output,
-    ...) {
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @seealso
+#'  \code{\link[GIFTr]{GIFTr}}
+#' @rdname tf_q
+#' @export
+#' @importFrom glue glue
+#
+tf_q <- function(data, questions, answers, categories, question_names = NULL, output) {
     # Check questions validity
     data <- dgift(data, questions)
 
-    if(is.null(question_names)){
-        question_names <- q_name(data , questions)
+    if (is.null(question_names)) {
+        data <- q_name(data, questions)
+        question_names <- "q_names"
     }
 
     # Force encoding
@@ -32,7 +30,7 @@ tf_q <- function(data, questions, answers, categories, question_names = NULL, ou
     noq <- 0
     noans <- 0
     pass <- 0
-    cat(glue::glue("//{T/F questions}"), file = output, append = T)
+    cat(glue::glue("\n\n\n", "// T/F questions"), file = output, append = T)
     # Loop all rows
     for (i in 1:n) {
         if (is.na(data[i, questions])) {
@@ -59,8 +57,8 @@ tf_q <- function(data, questions, answers, categories, question_names = NULL, ou
             cat(glue::glue("\n\n\n", "$CATEGORY: {data[i,categories]}"), file = output, append = T)
         }
 
-        cat(glue("\n\n\n","::{}question_names[i]{}}::", "[markdown]{}data[i,questions]{}} {{}toupper(answer){}}}", .open = "{}", .close = "{}}"),
-            file = output, append = T)
+        cat(glue("\n\n\n", "::{}data[i,question_names]{}}::", "[markdown]{}data[i,questions]{}} {{}toupper(answer){}}}",
+            .open = "{}", .close = "{}}"), file = output, append = T)
     }  # loop end
 
     print(glue::glue("\n T/F questions passed input: {n} \n T/F questions Passed: {pass} \n Error found: {noq + noans} \n No question found : {noq} \n No valid answer found: {noans}"))
