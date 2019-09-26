@@ -7,6 +7,8 @@
 
 [![Travis build
 status](https://travis-ci.org/omarelashkar/GIFTr.svg?branch=master)](https://travis-ci.org/omarelashkar/GIFTr)
+[![AppVeyor build
+status](https://ci.appveyor.com/api/projects/status/github/omarelashkar/GIFTr?branch=master&svg=true)](https://ci.appveyor.com/project/omarelashkar/GIFTr)
 <!-- badges: end -->
 
 GIFTr package in intended to help course creators to upload questions to
