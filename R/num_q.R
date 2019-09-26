@@ -1,14 +1,14 @@
 #' @title Generate GIFT Numeric Questions From Spreadsheet
-#' @description Create GIFT file with numeric entery questions from a spreadsheet to be exported to LMS.
-#' @param data dataframe or tibble of numerical entery questions data
+#' @description Create GIFT file with numeric entry questions from a spreadsheet to be exported to LMS.
+#' @param data dataframe or tibble of numerical entry questions data
 #' @param questions name(string) or index(integer) of the questions column
 #' @param answers  a vector of names(strings) or indices of answers column(s)
 #' @param categories name(string) or index(integer) of categories column if available, Default: NULL
 #' @param question_names name(string) or index(integer) of the questions names column. If NULL, it will be the first 40 letters of the question title, Default: NULL
 #' @param output string of .txt file name and path where the questions will be exported to.
-#' @details  \code{num_q} function takes a dataframe with numeric entery questions and export a text file in MOODLE GIFT format. The function automatically makes an numeric entery question either single or multiple according to your data format(check numeric questions formating below). If you have additional column of question_type set to `num_q` you can also use \link{GIFTr} function which wrapps all question generating functions.\cr\cr See Vignette and \link{GIFTrData} for demos.
-#' @inheritSection GIFTr Formating Your Data
-#' @section Numeric Entery Questions Formating:
+#' @details  \code{num_q} function takes a dataframe with numeric entry questions and export a text file in MOODLE GIFT format. The function automatically makes an numeric entry question either single or multiple according to your data format(check numeric questions formatting below). If you have additional column of question_type set to `num_q` you can also use \link{GIFTr} function which wraps all question generating functions.\cr\cr See Vignette and \link{GIFTrData} for demos.
+#' @inheritSection GIFTr Formatting Your Data
+#' @section Numeric Entry Questions Formatting:
 #' Numeric Answer can be in single column or multiple columns. You can also format it as range or
 #' interval limit for the answer and partial credit. For further illustration, check the vignette.
 #' \subsection{Numeric Range and Intervals}{If you want the answer to be between 1 and 2, you can
@@ -21,7 +21,7 @@
 #' For example `122` and `\%50\%122:5`.}
 #' @examples
 #'  \dontrun{
-#' #data with numeric entery questions
+#' #data with numeric entry questions
 #' data(GIFTr)
 #' numq_data <- GIFTr[which(GIFTr$question_type == "num_q"),]
 #'
@@ -57,7 +57,7 @@ num_q <- function(data, questions, answers, categories, question_names = NULL, o
 
 
 
-    cat(glue::glue("\n\n\n", "// Numeric Entery questions"), file = output, append = T)
+    cat(glue::glue("\n\n\n", "// Numeric Entry questions"), file = output, append = T)
     for (i in 1:n) {
         # check question validity
         if (is.na(data[i, questions])) {

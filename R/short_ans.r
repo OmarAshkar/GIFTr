@@ -2,11 +2,11 @@
 #' @description Create GIFT file with short answer questions from a spreadsheet to be exported to LMS.
 #' @param data dataframe or tibble of short answer questions data
 #' @inheritParams num_q
-#' @details \code{short_ans} function takes a dataframe with short answer questions and export a text file in MOODLE GIFT format. The function automatically makes a short answer question either single or multiple with or without different credit weight according to your data format(check short answer questions formating below). If you have additional column of question_type set to `short_ans` you can also use \link{GIFTr} function which wrapps all question generating functions.\cr\cr See Vignette and \link{GIFTrData} for demos.
+#' @details \code{short_ans} function takes a dataframe with short answer questions and export a text file in MOODLE GIFT format. The function automatically makes a short answer question either single or multiple with or without different credit weight according to your data format(check short answer questions formatting below). If you have additional column of question_type set to `short_ans` you can also use \link{GIFTr} function which wraps all question generating functions.\cr\cr See Vignette and \link{GIFTrData} for demos.
 #'
-#' @inheritSection GIFTr Formating Your Data
+#' @inheritSection GIFTr Formatting Your Data
 #'
-#' @section Short Answer Questions Formating:
+#' @section Short Answer Questions Formatting:
 #' Short answer question answers can be in single column or multiple columns. If an answer has not credit it will be given 100\% credit automatically. For example if the answer is 'statistics', it will be equivalent to '\%100\%statistics'. While '\%80\%Data Science' answer will take 80\% of the credit  \cr\cr For further illustration, check \link{GIFTrData}.
 #'
 #' @examples

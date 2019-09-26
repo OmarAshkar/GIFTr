@@ -3,26 +3,30 @@
 \docType{data}
 \name{GIFTrData_2}
 \alias{GIFTrData_2}
-\title{DATASET_TITLE}
+\title{Questions Data without asterisk}
 \format{A data frame with 10 rows and 9 variables:
 \describe{
-  \item{\code{categories}}{character COLUMN_DESCRIPTION}
-  \item{\code{names}}{character COLUMN_DESCRIPTION}
-  \item{\code{question}}{character COLUMN_DESCRIPTION}
-  \item{\code{A}}{character COLUMN_DESCRIPTION}
-  \item{\code{B}}{character COLUMN_DESCRIPTION}
-  \item{\code{C}}{character COLUMN_DESCRIPTION}
-  \item{\code{D}}{character COLUMN_DESCRIPTION}
-  \item{\code{E}}{character COLUMN_DESCRIPTION}
-  \item{\code{question_type}}{character COLUMN_DESCRIPTION}
+  \item{\code{categories}}{character categories of questions to be
+  imported to MOODLE to hierarchical order}
+  \item{\code{names}}{character names of the questions}
+  \item{\code{question}}{character question text}
+  \item{\code{A}}{character first answer option, this column must be the answer column for mcq}
+  \item{\code{B}}{character second answer option}
+  \item{\code{C}}{character third answer option}
+  \item{\code{D}}{character fourth answer option}
+  \item{\code{E}}{character fifth answer option}
+  \item{\code{question_type}}{character question type value should be either `mcq`, `num_q`, `tf_q`, `short_ans` }
 }}
 \usage{
 data(GIFTrData_2)
 }
 \description{
-DATASET_DESCRIPTION
+This data is a manipulated copy of \link{GIFTr} data with removal of the multiple answers mcq and removal of asterisk from the single answer mcq.
 }
 \details{
-DETAILS
+This data is an altered form of \link{GIFTr}. Check it usage in \link{mcq}. For further details on the data structure, check \link{GIFTr} documentation.
+}
+\seealso{
+\link{GIFTrData} \link{GIFTr} \link{mcq}
 }
 \keyword{datasets}

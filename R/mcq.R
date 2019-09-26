@@ -7,14 +7,14 @@
 #' @param question_names name(string) or index(integer) of the questions names column. If NULL, it will be the first 40 letters of the question title, Default: NULL
 #' @param output string of .txt file name and path where the questions will be exported to.
 #' @param make_answer If TRUE, the first column of answers columns will be set as the right answer, Default: FALSE.
-#' @details \code{mcq} function takes a dataframe with mcq questions and export a text file in MOODLE GIFT format. The function automatically makes an mcq a single answer or multiple answers depends on astrisks present in the answers column. If you have additional column of question_type set to `mcq` you can also use \link{GIFTr} function which wrapps all question generating functions.\cr\cr See Vignette and \link{GIFTrData} for demos.
+#' @details \code{mcq} function takes a dataframe with mcq questions and export a text file in MOODLE GIFT format. The function automatically makes an mcq a single answer or multiple answers depends on asterisks present in the answers column. If you have additional column of question_type set to `mcq` you can also use \link{GIFTr} function which wraps all question generating functions.\cr\cr See Vignette and \link{GIFTrData} for demos.
 #'
-#' @inheritSection GIFTr Formating Your Data
-#' @section Formating MCQ Questions: \subsection{Specifying mcq answer}{You can specify answers simply using astrisk in a the start on the answer. If you choose more than one answer, the function will generate a multiple answers mcq with every answer holds partial even credit. See \link{GIFTrData} for this usage. \cr\cr If you intend to \strong{use single answer only}, you might specify `make_answer` or `mcq_answer_column` to TRUE, this will consider the first answer column to be the answer. For example, if the answers are in columns c(5,9), the answers will be listed in the first column, 5. See \link{GIFTrData_2} for this usage.}
+#' @inheritSection GIFTr Formatting Your Data
+#' @section Formatting MCQ Questions: \subsection{Specifying mcq answer}{You can specify answers simply using asterisk in a the start on the answer. If you choose more than one answer, the function will generate a multiple answers mcq with every answer holds partial even credit. See \link{GIFTrData} for this usage. \cr\cr If you intend to \strong{use single answer only}, you might specify `make_answer` or `mcq_answer_column` to TRUE, this will consider the first answer column to be the answer. For example, if the answers are in columns c(5,9), the answers will be listed in the first column, 5. See \link{GIFTrData_2} for this usage.}
 #'
 #' @examples
 #' \dontrun{
-#' #data with astrisk and multiple answer mcq(Q2 question)
+#' #data with asterisk and multiple answer mcq(Q2 question)
 #' data(GIFTr)
 #' mcqdata <- GIFTr[which(GIFTr$question_type == "mcq"),]
 #'
@@ -70,7 +70,7 @@ mcq <- function(data, questions, answers, categories = NULL, question_names = NU
 
         # start rows for-loop
         answertemp <- na.omit(unlist(data[i, answers]))
-        # holder and reset for formated text
+        # holder and reset for formatted text
         answertemp2 <- c()
 
 
@@ -143,7 +143,7 @@ mcq <- function(data, questions, answers, categories = NULL, question_names = NU
 
         cat(glue::glue(("{"), .open = "{{"), file = output, append = T)
 
-        # print formated answers
+        # print formatted answers
         for (iv in 1:length(answertemp)) {
             cat(glue::glue("\n\n", "{answertemp2[iv]}"), file = output, append = T)
         }

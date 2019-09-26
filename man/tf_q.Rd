@@ -23,27 +23,27 @@ tf_q(data, questions, answers, categories, question_names = NULL, output)
 Create GIFT file with true or false questions from a spreadsheet to be exported to LMS.
 }
 \details{
-\code{tf_q} function takes a dataframe with true or false questions and export a text file in MOODLE GIFT format. The function automatically makes a true or false when it detect `T` or 'F' in the answers vector regardless of case. If you have additional column of question_type set to `tf_q` you can also use \link{GIFTr} function which wrapps all question generating functions.\cr\cr See Vignette and \link{GIFTrData} for demos.
+\code{tf_q} function takes a dataframe with true or false questions and export a text file in MOODLE GIFT format. The function automatically makes a true or false when it detect `T` or 'F' in the answers vector regardless of case. If you have additional column of question_type set to `tf_q` you can also use \link{GIFTr} function which wraps all question generating functions.\cr\cr See Vignette and \link{GIFTrData} for demos.
 }
-\section{True or False Questions Formating}{
+\section{True or False Questions Formatting}{
 
 True or False answers is to be set in 1 column with letter 'T' or 'F' insensitive to the case.  \cr\cr For further illustration, check \link{GIFTrData}.
 }
 
-\section{Formating Your Data}{
+\section{Formatting Your Data}{
  A guideline for creating you questions data can be found below. Check the data \code{\link{GIFTrData}} and  \code{\link{GIFTrData_2}} as example for formatted questions.
+\subsection{Markdown, HTML Support and LATEX support}{
+MOODLE itself supports basic markdown and HTML for questions formatting. So when formatting your data you can use HTML tags like <sub> and <sup>. Also you can use markdown  **bold** or __bold__ and  *italic* or _italic_ ...etc. However it is better a better practice to avoid using asterisk to avoid confusion with MCQ format. For more about the supported markdown see \href{https://docs.moodle.org/37/en/Markdown}{MOODLE documentation}.
+}
 
-\subsection{Markdown, HTML Support and LATEX support}{ MOODLE itself supports basic markdown and HTML for questions formating. So when formating your data you can use HTML tags like <sub> and <sup>. Also you can use markdown  **bold** or __bold__ and  *italic* or _italic_ ...etc. However it is better a better practice to avoid using asterisk to avoid confusion with MCQ format. For more about the supported markdown see \href{MOODLE documentation}{https://docs.moodle.org/37/en/Markdown}.}
-
-\subsection{LATEX Support}{MOODLE also supports inline and block LATEX equations through \href{https://www.mathjax.org/}{mathjax}, however you have to be carefull with the \href{https://docs.moodle.org/37/en/GIFT_format#Special_Characters_.7E_.3D_.23_.7B_.7D}{special characters} like curlly brackets /{/} and equal sign = , so you have to use back slash before those to ensure you can import correctly.\cr\cr Note that if you see thee data in console, you will find it with 2 backslash \\, however that's the escaping of the backslash in R and you write with with single slash normally. Check \link{GIFTrData} \code{GIFTrData[11,3]}for an example. For further details on LATEX, check \href{https://docs.moodle.org/23/en/Using_TeX_Notation}{MOODLE docs}.}
+\subsection{LATEX Support}{MOODLE also supports inline and block LATEX equations through \href{https://www.mathjax.org/}{mathjax}, however you have to be careful with the \href{https://docs.moodle.org/37/en/GIFT_format#Special_Characters_.7E_.3D_.23_.7B_.7D}{special characters} like curly brackets /{/} and equal sign = , so you have to use back slash before those to ensure you can import correctly.\cr\cr Note that if you see thee data in console, you will find it with 2 backslash \\, however that's the escaping of the backslash in R and you write with with single slash normally. Check \link{GIFTrData} \code{GIFTrData[11,3]}for an example. For further details on LATEX, check \href{https://docs.moodle.org/23/en/Using_TeX_Notation}{MOODLE docs}.}
 \subsection{Answer Feedback}{You can easily choose to enter a feedback by using #sign after the answer you want to specify a feedback on. Check \link{GIFTrData} for examples.}
 \subsection{Data columns}{The data passed would differ slightly according to question type, however generally you need to have: \enumerate{
 \item a column contains question. This cannot contain empty values
-\item answer(s) column(s). This may be multiple columns if you have multiple answers. If you mix single and multiple answer it is better to write the single answer in the first column. If you have \strong{only single answer MCQ and NO multiple answer MCQ}, you can set the answers without astrisk in the first column of the answers columns. More details in the vignette and below.
-\item a column specifying the type of question. The current supported questions are MCQ, numerical entery, true or false and short answer questions. The should be named 'mcq' , 'num_q' , 'tf_q' and 'short_ans' respectively.
-\item a colum specifying categories and subcategories in the MOODLE categories are important when you are preparing a quiz as you may want to specify certain proportions of inclusions. Categories and subcategories are spaced by forward slash like Categ1/subcateg1/subsubcateg1 ...etc.
+\item answer(s) column(s). This may be multiple columns if you have multiple answers. If you mix single and multiple answer it is better to write the single answer in the first column. If you have \strong{only single answer MCQ and NO multiple answer MCQ}, you can set the answers without asterisk in the first column of the answers columns. More details in the vignette and below.
+\item a column specifying the type of question. The current supported questions are MCQ, numerical entry, true or false and short answer questions. The should be named 'mcq' , 'num_q' , 'tf_q' and 'short_ans' respectively.
+\item a column specifying categories and subcategories in the MOODLE categories are important when you are preparing a quiz as you may want to specify certain proportions of inclusions. Categories and subcategories are spaced by forward slash like Categ1/subcateg1/subsubcateg1 ...etc.
 \item a column specifying question names. So you can easily enter a certain question names by like certain ID or keyword to make the questions easily on the system. however you don't need to worry about that as automatically if not set, the first 40 letter are set a question name.
-
 
 
 }
