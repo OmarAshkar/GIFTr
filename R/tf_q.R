@@ -1,13 +1,25 @@
-#' @title Create GIFT File with True or False Questions From Spreadsheet
-#' @description FUNCTION_DESCRIPTION
+#' @title Generate GIFT True or False Questions From Spreadsheet
+#' @description Create GIFT file with true or false questions from a spreadsheet to be exported to LMS.
+#' @param data dataframe or tibble of true or false questions data
 #' @inheritParams num_q
-#' @details DETAILS
+#' @details \code{tf_q} function takes a dataframe with true or false questions and export a text file in MOODLE GIFT format. The function automatically makes a true or false when it detect `T` or 'F' in the answers vector regardless of case. If you have additional column of question_type set to `tf_q` you can also use \link{GIFTr} function which wrapps all question generating functions.\cr\cr See Vignette and \link{GIFTrData} for demos.
+#'
+#' @inheritSection GIFTr Formating Your Data
+#'
+#' @section True or False Questions Formating:
+#' True or False answers is to be set in 1 column with letter 'T' or 'F' insensitive to the case.  \cr\cr For further illustration, check \link{GIFTrData}.
+#'
 #' @examples
-#' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
+#'  \dontrun{
+#' data(GIFTr)
+#' #data with true or false question type
+#' tf_data <- GIFTr[which(GIFTr$question_type == "tf_q"),]
+#'
+#' tf_q(data = tf_data, questions = 3,
+#'  answers = c(4:8), categories = 1,
+#'  question_names = 2, output = "tfq.txt")
+#'  #tfq.txt created at current directory.
 #'  }
-#' }
 #' @seealso
 #'  \code{\link[GIFTr]{GIFTr}}
 #' @rdname tf_q

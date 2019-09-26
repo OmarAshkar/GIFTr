@@ -1,20 +1,36 @@
-#' @title Create GIFT File with Single & Multiple Answers MCQs From Spreadsheet
-#' @description FUNCTION_DESCRIPTION
-#' @param data PARAM_DESCRIPTION
-#' @param questions PARAM_DESCRIPTION
-#' @param answers PARAM_DESCRIPTION
-#' @param categories PARAM_DESCRIPTION, Default: NULL
-#' @param question_names PARAM_DESCRIPTION, Default: NULL
-#' @param output PARAM_DESCRIPTION
-#' @param make_answer PARAM_DESCRIPTION, Default: F
-#' @details DETAILS
+#' @title Generate GIFT MCQs From Spreadsheet
+#' @description Create GIFT file with single & multiple answers MCQs from a spreadsheet to be exported to LMS.
+#' @param data dataframe or tibble of mcq questions data
+#' @param questions name(string) or index(integer) of the questions column
+#' @param answers  a vector of names(strings) or indices of answers column(s)
+#' @param categories name(string) or index(integer) of categories column if available, Default: NULL
+#' @param question_names name(string) or index(integer) of the questions names column. If NULL, it will be the first 40 letters of the question title, Default: NULL
+#' @param output string of .txt file name and path where the questions will be exported to.
+#' @param make_answer If TRUE, the first column of answers columns will be set as the right answer, Default: FALSE.
+#' @details \code{mcq} function takes a dataframe with mcq questions and export a text file in MOODLE GIFT format. The function automatically makes an mcq a single answer or multiple answers depends on astrisks present in the answers column. If you have additional column of question_type set to `mcq` you can also use \link{GIFTr} function which wrapps all question generating functions.\cr\cr See Vignette and \link{GIFTrData} for demos.
+#'
 #' @inheritSection GIFTr Formating Your Data
+#' @section Formating MCQ Questions: \subsection{Specifying mcq answer}{You can specify answers simply using astrisk in a the start on the answer. If you choose more than one answer, the function will generate a multiple answers mcq with every answer holds partial even credit. See \link{GIFTrData} for this usage. \cr\cr If you intend to \strong{use single answer only}, you might specify `make_answer` or `mcq_answer_column` to TRUE, this will consider the first answer column to be the answer. For example, if the answers are in columns c(5,9), the answers will be listed in the first column, 5. See \link{GIFTrData_2} for this usage.}
+#'
 #' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
+#' #data with astrisk and multiple answer mcq(Q2 question)
+#' data(GIFTr)
+#' mcqdata <- GIFTr[which(GIFTr$question_type == "mcq"),]
+#'
+#' mcq(data = mcqdata, questions = 3,
+#'  answers = c(4:8), categories = 1,
+#'  question_names = 2, output = "mcq_1.txt") #No make_answer argument, question_name specified
+#'  #mcq_1.txt created at current directory.
+#' #data with no atrisk and no multiple answer mcq
+#' mcqdata_2 <- GIFTr_2[which(GIFTr_2$question_type == "mcq"),]
+#'
+#' mcq(data = mcqdata_2, questions = 3,
+#'  answers = c(4:8), categories = 1,
+#'  question_names = 2, make_answer = TRUE,
+#'  output = "mcq_1.txt") #Answer is in column 4
+#'  #`mcq_1.txt` created at current directory.
 #'  }
-#' }
 #' @seealso
 #'  \code{\link[GIFTr]{GIFTr}}
 #' @rdname mcq
@@ -70,6 +86,11 @@ mcq <- function(data, questions, answers, categories = NULL, question_names = NU
 
         if (n_ans > 1)
             {
+                #prevent multiple answers if make answer is true
+                if(make_answer == T){
+                    print(data[i,answers])
+                    stop("You can't use `make_answer` argument and have another answer marked")
+                    }
                 multipleans <- multipleans + 1
                 # start if-statment of multiple answers Get factor of grades
                 factor <- as.character(100/n_ans)

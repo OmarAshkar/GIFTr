@@ -1,13 +1,25 @@
-#' @title Create GIFT File with Short Answer Questions From Spreadsheet
-#' @description FUNCTION_DESCRIPTION
+#' @title Generate GIFT Short Answer From Spreadsheet
+#' @description Create GIFT file with short answer questions from a spreadsheet to be exported to LMS.
+#' @param data dataframe or tibble of short answer questions data
 #' @inheritParams num_q
-#' @details DETAILS
+#' @details \code{short_ans} function takes a dataframe with short answer questions and export a text file in MOODLE GIFT format. The function automatically makes a short answer question either single or multiple with or without different credit weight according to your data format(check short answer questions formating below). If you have additional column of question_type set to `short_ans` you can also use \link{GIFTr} function which wrapps all question generating functions.\cr\cr See Vignette and \link{GIFTrData} for demos.
+#'
+#' @inheritSection GIFTr Formating Your Data
+#'
+#' @section Short Answer Questions Formating:
+#' Short answer question answers can be in single column or multiple columns. If an answer has not credit it will be given 100\% credit automatically. For example if the answer is 'statistics', it will be equivalent to '\%100\%statistics'. While '\%80\%Data Science' answer will take 80\% of the credit  \cr\cr For further illustration, check \link{GIFTrData}.
+#'
 #' @examples
-#' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
+#'  \dontrun{
+#' data(GIFTr)
+#' #data with short answer question type
+#' shortans_data <- GIFTr[which(GIFTr$question_type == "short_ans"),]
+#'
+#' short_ans(data = shortans_data, questions = 3,
+#'  answers = c(4:8), categories = 1,
+#'  question_names = 2, output = "shortq.txt")
+#'  #shortq.txt created at current directory.
 #'  }
-#' }
 #' @seealso
 #'  \code{\link[GIFTr]{GIFTr}}
 #' @rdname short_ans
