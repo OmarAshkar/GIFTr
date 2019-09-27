@@ -40,7 +40,7 @@
 #' @param categories name(string) or index(integer) of categories column if available, Default: NULL
 #'
 #' @param question_names name(string) or index(integer) of the questions names column. If NULL, it will be the first 40 letters of the question title, Default: NULL
-#' @param question_type name(string) or index(integer) of the questions column.
+#' @param question_type name(string) or index(integer) of the questions type column.
 #' @param mcq_answer_column If TRUE, the first column of answers columns will be set as the right answer, Default: FALSE
 #' @param output directory of .txt file name the questions will be exported to.
 #'
