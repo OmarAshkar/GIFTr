@@ -1,0 +1,167 @@
+---
+title: "Using GIFTr Package To Prepare MOODLE Quiz from Spreadsheet"
+author: Omar I. Elashkar
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{GIFTr_tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## What is GIFTr?
+GIFTr package in intended to help course creators to upload questions to MOODLE and other LMS for quizzes. GIFTr takes dataframe or tibble of questions of four types: mcq, numerical questions, true or false and short answer,and export it a text file formatted in MOODLe GIFT format. You can prepare a spreadsheet in any software and import it in R and generate any number of questions with HTML, markdown and LATEX support.
+
+## Aim of this document
+The aim of vignette is to highlight the most usefull features of `GIFTr` in preparing a flexible MOODLE quiz as quick as possible with the lowest possibility of errors.
+
+## Before you start.
+Before going through this tutorial you should have:
+- R installed
+- spreadsheet application, like MS Excel, Google Sheets, Libre Calc ...etc.
+
+## How to start your quiz spreadsheet?
+The data passed would differ slightly according to question type, however generally you need to have:-
+
+* a column contains question. This cannot contain empty values
+* answer(s) column(s). This may be multiple columns if you have multiple answers. If you mix single and multiple answer it is better to write the single answer in the first column. If you have **only single answer MCQ and NO multiple answer MCQ**, you can set the answers without asterisk in the first column of the answers columns. More details in the vignette and below.
+* a column specifying the type of question. The current supported questions are MCQ, numerical entry, true or false and short answer questions. The should be named 'mcq' , 'num_q' , 'tf_q' and 'short_ans' respectively.
+* a column specifying categories and subcategories in the MOODLE categories are important when you are preparing a quiz as you may want to specify certain proportions of inclusions. Categories and subcategories are spaced by forward slash like Categ1/subcateg1/subsubcateg1 ...etc.
+* a column specifying question names. So you can easily enter a certain question names by like certain ID or keyword to make the questions easily on the system. however you don't need to worry about that as automatically if not set, the first 40 letter are set a question name.
+
+<br/> Here is what your spreadsheet heading should look like. 
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(GIFTr)
+library(kableExtra)
+options(knitr.kable.NA = '')
+knitr::kable(head(GIFTrData , 0) , ) %>%
+  kable_styling(full_width = T)
+```
+
+### categories column
+If you want to add high control for your quiz, you can specify categories in heirarchial order. For example if you want to create this quiz under category Questions and subcategory to be histoy and under that chapter2 , you can write it as `Ques/hist/chap2`
+
+### Questions column
+This is where you specify the question text. This can't be empty at any question row. 
+
+#### Markdown and HTML Support 
+You can use markdown formating like `**bold**` and *italic* and the more advance formatting like tables. You also can use HTML tags in this question like `<sub>` and `<sup>`
+
+#### LATEX Support
+You can use latex as inline or block code, between single $ or double $$ dolar sign. However you have to be careful if you have equal sign or curly brackets to use \ to escape it. For more about escaping characters in GIFT check [MOODLE docs](https://docs.moodle.org/37/en/GIFT_format#Special_Characters_.7E_.3D_.23_.7B_.7D)
+
+### Answers column
+You can have one or more answer columns. The formating can differ slightly from question to another. Below I will highlight the most important tips. 
+#### HTML, markdown and LATEX
+Like question text, answers can be formated with HTML, markdown or LATEX.
+
+#### MCQ 
+When you write MCQs answers you have the flexibility of marking more than one correct answer to be preceded by astrisk *. If you mark only one answer by astrisk, you will get an MCQ question of single answer type and this answer will hold 100% of credit. If you mark many answers, answer will take partial equally divided postive credit and the wrong answers will take equally divided negative credit. This is to prevent selecting all the answers to get 100% credit as MOODLE don't allow it automatically. <br/> Below is a whole example of a single and a multiple answer MCQ respectively. 
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+knitr::kable(GIFTrData[c(1,2),]) %>%
+  kable_styling(full_width = T)
+```
+<br/>
+
+If you don't want to have a multiple answers MCQ and want to write **ONLY** single answer MCQ and want a quicker approch than asterisk, you can neglect asterisk and position the all right answers to be in the first column answer. Below is an example of single answer MCQ with the correct answer in column A 
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+knitr::kable(GIFTrData_2[c(1),]) %>%
+  kable_styling(full_width = T)
+```
+
+#### Numeric Entry
+You can right single or multiple answers of numeric entry questions with ranges and limits. 
+- Answer with no preceding credit will take 100% credit. 
+- If you precede an answer with partial credit, for example, ''%80%2', typing 2 will give 80% of the credit for this question. 
+- You can use ranges and limits like.
+    - '4..6' is any answer minimun 4 and maximum 6
+    - '5:1' the answer is 5 plus or minus 1
+Below are examples of numeric questions
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+knitr::kable(GIFTrData[which(GIFTrData$question_type == "num_q"),]) %>%
+  kable_styling(full_width = T)
+```
+
+#### Short Answer Question
+You can use a single or multiple answers to be the answer with the same concept of partial credits of numeric questions, where no preceding credit is 100% and %90% is 90% ...etc.
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+knitr::kable(GIFTrData[which(GIFTrData$question_type == "short_ans"),]) %>%
+  kable_styling(full_width = T)
+```
+
+#### True or False
+For true or false questions, you just right T or F in the first answer column.
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+knitr::kable(GIFTrData[which(GIFTrData$question_type == "tf_q"),]) %>%
+  kable_styling(full_width = T)
+```
+
+#### Answer Feedback 
+You can always add a feedback for any answer selected by adding # sign after the answer.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+knitr::kable(GIFTrData[c(1,9),c(4:8)]) %>%
+  kable_styling(full_width = T)
+```
+
+
+
+### Question type column
+The question types supported are mcq, numeric entery, true or false and short answer. You don't have to specify those if you have only one type of them as you can use a single function specific to create those types of questions, however if you want to use `GIFTr()` function, you can't leave this column empty. 
+
+- for mcq value is `mcq`
+- for numeric entry value is 'num_q'
+- for true or false value is `tf_q`
+- for short answer value is `short_ans`
+
+### Question names column
+If you want to specify a specifec keyword or ID for a question, you can specify it here. However you don't have to worry about that this as question name is automatically generated to be the first 40 words of the questions column.
+
+Here is how a full data may like.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+knitr::kable(GIFTrData) %>%
+  kable_styling(full_width = T)
+```
+
+## Import to R
+It doesn't matter how you import to R, you can use `readxl` package or `read.csv()` or what ever you like to import your speadsheet as dataframe or tibble. A build-in data called `GIFTrData` is implemented here as example of spreadsheet after importing.  
+
+```{r}
+library(GIFTr)
+head(GIFTrData)
+str(GIFTrData)
+```
+
+## GIFTr Function
+
+`GIFTr()` function is the main function of `GIFTr` Package. It arguments are:-
+- `data`: dataframe or tibble of the questions data
+- `questions`: name or index of the questions column
+- `answers`: a vector of namesor indices of answers column(s)
+- `categories`: name or index of categories column if available, Default: NULL
+- `question_name`: Default is NULL and you don't have to pass it. If you want them, it will be name or index of the questions names column. If NULL, it will be the first 40 letters of the question title.
+- `question_type` name or index of the questions type column.
+- `mcq_answer_column`: This parameter you can use on `GIFTrData_2` as the answers of MCQS are in the first column and you have not multiple answer mcq. Default: FALSE
+- `output`: directory of .txt file name the questions will be exported to. The generated text will be appended to this file if it is already there, if not a new file will be created. 
+
+
+
+
+```{r setup}
+GIFTr::GIFTr(data = GIFTrData, question_names = 2, 
+             questions = 3, answers = c(4:8), 
+             categories = 1, question_type = 9,
+             output = 'quiz.txt')  
+```
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+ file.remove("quiz.txt")
+```
+
+Now you have a file called `quiz.txt` in working directory that has the questions ready to be imported by MOODLE!
+
+<br/>
+
+You can also use specific functions if your dataframe holds only one type of questions. Check the documentation `mcq()`, `num_q`, `tf_q()` and `short_ans()` functions.
