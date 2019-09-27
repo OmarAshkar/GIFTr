@@ -127,4 +127,5 @@ GIFTr::GIFTr(data = GIFTrData, questions = 3, answers = c(4:8),
 The generated file can be imported easily by MOODLE or any other LMS
 that supports GIFT.
 
-For further documenation instructions, check the package documentation.
+For further documenation instructions, check the package vingette and
+documentation.
