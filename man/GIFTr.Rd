@@ -16,7 +16,7 @@ GIFTr(data, output, questions, answers, question_type, categories = NULL,
 
 \item{answers}{a vector of names(strings) or indices of answers column(s)}
 
-\item{question_type}{name(string) or index(integer) of the questions column.}
+\item{question_type}{name(string) or index(integer) of the questions type column.}
 
 \item{categories}{name(string) or index(integer) of categories column if available, Default: NULL}
 

@@ -24,7 +24,7 @@ from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("omarelashkar/GIFTr")
+devtools::install_github("omarelashkar/GIFTr" , build_vignettes = TRUE)
 ```
 
 ## Example
@@ -129,3 +129,8 @@ that supports GIFT.
 
 For further documenation instructions, check the package vingette and
 documentation.
+
+``` r
+#open vingette
+vignette("GIFTr_tutorial")
+```
