@@ -22,8 +22,8 @@
 #' @examples
 #'  \dontrun{
 #' #data with numeric entry questions
-#' data(GIFTr)
-#' numq_data <- GIFTr[which(GIFTr$question_type == "num_q"),]
+#' data(GIFTrData)
+#' numq_data <- GIFTrData[which(GIFTrData$question_type == "num_q"),]
 #'
 #' num_q(data = numq_data, questions = 3,
 #'  answers = c(4:8), categories = 1,

@@ -11,9 +11,9 @@
 #'
 #' @examples
 #'  \dontrun{
-#' data(GIFTr)
+#' data(GIFTrData)
 #' #data with true or false question type
-#' tf_data <- GIFTr[which(GIFTr$question_type == "tf_q"),]
+#' tf_data <- GIFTrData[which(GIFTrData$question_type == "tf_q"),]
 #'
 #' tf_q(data = tf_data, questions = 3,
 #'  answers = c(4:8), categories = 1,

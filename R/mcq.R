@@ -15,15 +15,15 @@
 #' @examples
 #' \dontrun{
 #' #data with asterisk and multiple answer mcq(Q2 question)
-#' data(GIFTr)
-#' mcqdata <- GIFTr[which(GIFTr$question_type == "mcq"),]
+#' data(GIFTrData)
+#' mcqdata <- GIFTrData[which(GIFTrData$question_type == "mcq"),]
 #'
 #' mcq(data = mcqdata, questions = 3,
 #'  answers = c(4:8), categories = 1,
 #'  question_names = 2, output = "mcq_1.txt") #No make_answer argument, question_name specified
 #'  #mcq_1.txt created at current directory.
 #' #data with no atrisk and no multiple answer mcq
-#' mcqdata_2 <- GIFTr_2[which(GIFTr_2$question_type == "mcq"),]
+#' mcqdata_2 <- GIFTrData_2[which(GIFTrData_2$question_type == "mcq"),]
 #'
 #' mcq(data = mcqdata_2, questions = 3,
 #'  answers = c(4:8), categories = 1,

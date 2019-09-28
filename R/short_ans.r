@@ -11,9 +11,9 @@
 #'
 #' @examples
 #'  \dontrun{
-#' data(GIFTr)
+#' data(GIFTrData)
 #' #data with short answer question type
-#' shortans_data <- GIFTr[which(GIFTr$question_type == "short_ans"),]
+#' shortans_data <- GIFTrData[which(GIFTrData$question_type == "short_ans"),]
 #'
 #' short_ans(data = shortans_data, questions = 3,
 #'  answers = c(4:8), categories = 1,
