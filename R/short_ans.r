@@ -1,16 +1,16 @@
-#' @title Generate GIFT Short Answer From Spreadsheet
-#' @description Create GIFT file with short answer questions from a spreadsheet to be exported to LMS.
+#' @title Generate 'GIFT' Short Answer From Spreadsheet
+#' @description Create 'GIFT' file with short answer questions from a spreadsheet to be exported to LMS.
 #' @param data dataframe or tibble of short answer questions data
 #' @inheritParams num_q
-#' @details \code{short_ans} function takes a dataframe with short answer questions and export a text file in MOODLE GIFT format. The function automatically makes a short answer question either single or multiple with or without different credit weight according to your data format(check short answer questions formatting below). If you have additional column of question_type set to `short_ans` you can also use \link{GIFTr} function which wraps all question generating functions.\cr\cr See Vignette and \link{GIFTrData} for demos.
+#' @details \code{short_ans} function takes a dataframe with short answer questions and export a text file in 'MOODLE' GIFT format. The function automatically makes a short answer question either single or multiple with or without different credit weight according to your data format(check short answer questions formatting below). If you have additional column of question_type set to `short_ans` you can also use \link{GIFTr} function which wraps all question generating functions.\cr\cr See Vignette and \link{GIFTrData} for demos.
 #'
 #' @inheritSection GIFTr Formatting Your Data
 #'
 #' @section Short Answer Questions Formatting:
 #' Short answer question answers can be in single column or multiple columns. If an answer has not credit it will be given 100\% credit automatically. For example if the answer is 'statistics', it will be equivalent to '\%100\%statistics'. While '\%80\%Data Science' answer will take 80\% of the credit  \cr\cr For further illustration, check \link{GIFTrData}.
-#'
+#' @return None
 #' @examples
-#'  \dontrun{
+#' \donttest{
 #' data(GIFTrData)
 #' #data with short answer question type
 #' shortans_data <- GIFTrData[which(GIFTrData$question_type == "short_ans"),]
@@ -26,7 +26,7 @@
 #' @export
 #' @importFrom glue glue
 #
-short_ans <- function(data, questions, answers, categories, question_names = NULL, output) {
+short_ans <- function(data, questions, answers, categories, question_names = NULL, output, verbose = TRUE) {
 
 
     data <- dgift(data, questions)
@@ -44,7 +44,7 @@ short_ans <- function(data, questions, answers, categories, question_names = NUL
     noans <- 0
     pass <- 0
 
-    cat(glue::glue("\n\n\n", "//Short Answer questions"), file = output, append = T)
+    cat(glue::glue("\n\n\n", "//Short Answer questions"), file = output, append = TRUE)
     for (i in 1:n) {
         # check question validity
         if (is.na(data[i, questions])) {
@@ -64,30 +64,25 @@ short_ans <- function(data, questions, answers, categories, question_names = NUL
 
         # print categories
         if (!is.na(data[i, categories])) {
-            cat(glue::glue("\n\n\n", "$CATEGORY: {data[i,categories]}"), file = output, append = T)
+            cat(glue::glue("\n\n\n", "$CATEGORY: {data[i,categories]}"), file = output, append = TRUE)
         }
 
 
         if (length(ans) >= 1) {
             vans <- vans + 1
             cat(glue::glue("\n\n\n", "::{{data[i, question_names]}}::", "[markdown]{{data[i, questions]}}{",
-                .open = "{{", .close = "}}"), file = output, append = T)
+                .open = "{{", .close = "}}"), file = output, append = TRUE)
 
             for (ii in 1:length(ans)) {
-                cat(glue::glue("={ans[ii]}"), file = output, append = T)
+                cat(glue::glue("={ans[ii]}"), file = output, append = TRUE)
             }
 
-            cat(glue::glue("\n }"), file = output, append = T)
+            cat(glue::glue("\n }"), file = output, append = TRUE)
         }
-
-
-
 
     }  # loop end
 
-
-
-    cat(glue::glue("total questions passed is {pass}. \n Valid answer: {vans} \n error in {noq + noans} \n {noq} no question has been found \n {noans} no valid answer has been found"))
+    if(verbose)message(glue::glue("total short answer questions passed is {pass}. \n Valid answer: {vans} \n error in {noq + noans} \n {noq} no question has been found \n {noans} no valid answer has been found"))
 
 }  # function end
 

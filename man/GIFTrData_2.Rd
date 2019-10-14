@@ -7,7 +7,7 @@
 \format{A data frame with 10 rows and 9 variables:
 \describe{
   \item{\code{categories}}{character categories of questions to be
-  imported to MOODLE to hierarchical order}
+  imported to 'MOODLE' to hierarchical order}
   \item{\code{names}}{character names of the questions}
   \item{\code{question}}{character question text}
   \item{\code{A}}{character first answer option, this column must be the answer column for mcq}
@@ -21,10 +21,10 @@
 data(GIFTrData_2)
 }
 \description{
-This data is a manipulated copy of \link{GIFTr} data with removal of the multiple answers mcq and removal of asterisk from the single answer mcq.
+This data is a manipulated copy of \link{GIFTrData} data with removal of the multiple answers mcq and removal of asterisk from the single answer mcq.
 }
 \details{
-This data is an altered form of \link{GIFTr}. Check it usage in \link{mcq}. For further details on the data structure, check \link{GIFTr} documentation.
+This data is an altered form of \link{GIFTrData}. Check it usage in \link{mcq}. For further details on the data structure, check \link{GIFTr} documentation.
 }
 \seealso{
 \link{GIFTrData} \link{GIFTr} \link{mcq}

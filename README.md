@@ -14,7 +14,7 @@ status](https://ci.appveyor.com/api/projects/status/github/omarelashkar/GIFTr?br
 GIFTr package in intended to help course creators to upload questions to
 MOODLE and other LMS for quizzes. GIFTr takes dataframe or tibble of
 questions of four types: mcq, numerical questions, true or false and
-short answer,and export it a text file formatted in MOODLe GIFT format.
+short answer,and export it a text file formatted in MOODLE GIFT format.
 You can prepare a spreadsheet in any software and import it in R and
 generate any number of questions with HTML, markdown and LATEX support.
 
@@ -127,7 +127,7 @@ GIFTr::GIFTr(data = GIFTrData, questions = 3, answers = c(4:8),
 The generated file can be imported easily by MOODLE or any other LMS
 that supports GIFT.
 
-For further documenation instructions, check the package vingette and
+For further documentation instructions, check the package vignette and
 documentation.
 
 ``` r

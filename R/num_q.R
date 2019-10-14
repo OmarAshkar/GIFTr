@@ -6,7 +6,8 @@
 #' @param categories name(string) or index(integer) of categories column if available, Default: NULL
 #' @param question_names name(string) or index(integer) of the questions names column. If NULL, it will be the first 40 letters of the question title, Default: NULL
 #' @param output string of .txt file name and path where the questions will be exported to.
-#' @details  \code{num_q} function takes a dataframe with numeric entry questions and export a text file in MOODLE GIFT format. The function automatically makes an numeric entry question either single or multiple according to your data format(check numeric questions formatting below). If you have additional column of question_type set to `num_q` you can also use \link{GIFTr} function which wraps all question generating functions.\cr\cr See Vignette and \link{GIFTrData} for demos.
+#' @param verbose If TRUE, the functions will print to the console the statistics of writing the output, Default: TRUE
+#' @details  \code{num_q} function takes a dataframe with numeric entry questions and export a text file in 'MOODLE' GIFT format. The function automatically makes an numeric entry question either single or multiple according to your data format(check numeric questions formatting below). If you have additional column of question_type set to `num_q` you can also use \link{GIFTr} function which wraps all question generating functions.\cr\cr See Vignette and \link{GIFTrData} for demos.
 #' @inheritSection GIFTr Formatting Your Data
 #' @section Numeric Entry Questions Formatting:
 #' Numeric Answer can be in single column or multiple columns. You can also format it as range or
@@ -16,11 +17,12 @@
 #' `158` and you want to set limit plus or minus 2, you can write it as `158:2`. Check the
 #' \link{GIFTrData} for examples.}
 #' \subsection{Multiple Numeric Answers with partial credits}{You enter multiple numeric answers
-#' with the same concepts above, but if you did not enter the credits for an answer, MOODLE will
+#' with the same concepts above, but if you did not enter the credits for an answer, 'MOODLE' will
 #' consider it `100\%`. So you have to specify the credit at the start of an answer.
 #' For example `122` and `\%50\%122:5`.}
+#' @return None
 #' @examples
-#'  \dontrun{
+#' \donttest{
 #' #data with numeric entry questions
 #' data(GIFTrData)
 #' numq_data <- GIFTrData[which(GIFTrData$question_type == "num_q"),]
@@ -36,7 +38,7 @@
 #' @export
 #' @importFrom glue glue
 #
-num_q <- function(data, questions, answers, categories, question_names = NULL, output) {
+num_q <- function(data, questions, answers, categories, question_names = NULL, output, verbose = TRUE) {
 
     data <- dgift(data, questions)
 
@@ -57,7 +59,7 @@ num_q <- function(data, questions, answers, categories, question_names = NULL, o
 
 
 
-    cat(glue::glue("\n\n\n", "// Numeric Entry questions"), file = output, append = T)
+    cat(glue::glue("\n\n\n", "// Numeric Entry questions"), file = output, append = TRUE)
     for (i in 1:n) {
         # check question validity
         if (is.na(data[i, questions])) {
@@ -78,31 +80,37 @@ num_q <- function(data, questions, answers, categories, question_names = NULL, o
 
         # print categories
         if (!is.na(data[i, categories])) {
-            cat(glue::glue("\n\n\n", "$CATEGORY: {data[i,categories]}"), file = output, append = T)
+            cat(glue::glue("\n\n\n", "$CATEGORY: {data[i,categories]}"), file = output, append = TRUE)
         }
 
         if (length(ans) == 1) {
             oneans <- oneans + 1
             cat(glue("\n\n\n", "::{{data[i,question_names]}}::", "[markdown]{{data[i, questions]}}{#{{ans}}}",
-                .open = "{{", .close = "}}"), file = output, append = T)
+                .open = "{{", .close = "}}"), file = output, append = TRUE)
         }
 
         # 2 answers of numerical questions
         if (length(ans) > 1) {
             twoans <- twoans + 1
             cat(glue("\n\n\n", "::{{data[i,question_names]}}::", "[markdown]{{data[i, questions]}}{# \n",
-                .open = "{{", .close = "}}"), file = output, append = T)
+                .open = "{{", .close = "}}"), file = output, append = TRUE)
 
             for (ii in 1:length(ans)) {
-                cat(glue::glue("\n\n", "={ans[ii]}"), file = output, append = T)
+                cat(glue::glue("\n\n", "={ans[ii]}"), file = output, append = TRUE)
             }
 
-            cat(glue::glue("\n\n }"), file = output, append = T)
+            cat(glue::glue("\n\n }"), file = output, append = TRUE)
         }
 
     }  # loop end
 
-    cat(glue::glue("total questions passed is {pass}. \n single answer: {oneans} \n two answer: {twoans} \n error in {noq + noans} \n {noq} no question has been found \n {noans} no valid answer has been found"))
+    if(verbose)message(glue::glue("\n",
+                       "Numerical questions input count: {pass} \n",
+                       "Numerical questions with single answer passed: {oneans} \n",
+                       "Numerical questions questions with multiple answers passed: {twoans} \n",
+                       "Error found: {noq + noans} \n",
+                       "No valid question found : {noq} \n",
+                       "No valid answer found: {noans}"))
 
 }  # function end
 

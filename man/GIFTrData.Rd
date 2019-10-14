@@ -7,7 +7,7 @@
 \format{A data frame with 10 rows and 9 variables:
 \describe{
   \item{\code{categories}}{character categories of questions to be
-  imported to MOODLE to hierarchical order}
+  imported to 'MOODLE' to hierarchical order}
   \item{\code{names}}{character names of the questions}
   \item{\code{question}}{character question text}
   \item{\code{A}}{character first answer option}
@@ -24,11 +24,11 @@ data(GIFTrData)
 DATASET_DESCRIPTION
 }
 \details{
-This data is a demo on a typical structure of data passed in \pkg{GIFTr} package.
+This data is a demo on a typical structure of data passed in \pkg{'GIFTr'} package.
 This data mcq question contains asterisk in the first 2 questions,
 one with single answer and the other is multiple answers question.
 }
-\section{Formating Tips}{
+\section{Formatting Tips}{
 
 \subsection{markdown}{Markdown is supported in GIFT format and example for it's usage in first and second question text.}
 \subsection{HTML}{Simple HTML syntax is supported as in question 10}
