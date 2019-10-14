@@ -9,11 +9,12 @@
 status](https://travis-ci.org/omarelashkar/GIFTr.svg?branch=master)](https://travis-ci.org/omarelashkar/GIFTr)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/omarelashkar/GIFTr?branch=master&svg=true)](https://ci.appveyor.com/project/omarelashkar/GIFTr)
+[![DOI](https://zenodo.org/badge/208570969.svg)](https://zenodo.org/badge/latestdoi/208570969)
 <!-- badges: end -->
 
-GIFTr package in intended to help course creators to upload questions to
-MOODLE and other LMS for quizzes. GIFTr takes dataframe or tibble of
-questions of four types: mcq, numerical questions, true or false and
+‘GIFTr’ package in intended to help course creators to upload questions
+to MOODLE and other LMS for quizzes. ‘GIFTr’ takes dataframe or tibble
+of questions of four types: mcq, numerical questions, true or false and
 short answer,and export it a text file formatted in MOODLE GIFT format.
 You can prepare a spreadsheet in any software and import it in R and
 generate any number of questions with HTML, markdown and LATEX support.
@@ -66,49 +67,46 @@ str(GIFTrData)
 #Create quiz.txt file with GIFT format 
 GIFTr::GIFTr(data = GIFTrData, questions = 3, answers = c(4:8), 
              categories = 1, question_type = 9, output = 'quiz.txt')
-#> Total Number of Questions passed:  11              
-#>                mcq num_q short_ans tf_q Sum
-#>   Ques/hist      2     2         1    1   6
-#>   Ques/math      0     3         1    0   4
-#>   Ques/science   0     0         0    1   1
-#>   Sum            2     5         2    2  11
+#> Total Number of Questions passed: 11
 #> 
-#> ==== 
-#> ==== 
-#> ==== 
 #> ====
-#> MCQ questions Input Count =2
-#> MCQ with Multiple Answers = 1
-#>  MCQ with single answers = 1
-#>  Invalid questions = 0
-#>  Invaild Answers = 0
-#>  Total MCQ Failed = 0
+#> ====
+#> ====
+#> ====
+#> MCQ questions input count: 2 
+#> MCQ questions with single answer passed: 1 
+#> MCQ questions with multiple answers passed: 1 
+#> Error found: 0 
+#> No valid question found : 0 
+#> No valid answer found: 0
 #> 
-#> ==== 
-#> ==== 
-#> ==== 
-#> Done MCQ! 
+#> ====
+#> ====
+#> ====
+#> Done MCQ!
 #> ===
-#> total questions passed is 5. 
-#> single answer: 4 
-#> two answer: 1 
-#> error in 0 
-#> 0 no question has been found 
-#> 0 no valid answer has been found
-#> ==== 
-#> ==== 
-#> ==== 
-#> Done Numerical questions! 
+#> Numerical questions input count: 5 
+#> Numerical questions with single answer passed: 4 
+#> Numerical questions questions with multiple answers passed: 1 
+#> Error found: 0 
+#> No valid question found : 0 
+#> No valid answer found: 0
+#> 
 #> ====
-#> total questions passed is 2. 
+#> ====
+#> ====
+#> Done Numerical questions!
+#> ====
+#> total short answer questions passed is 2. 
 #> Valid answer: 2 
 #> error in 0 
 #> 0 no question has been found 
 #> 0 no valid answer has been found
-#> ==== 
-#> ==== 
-#> ==== 
-#> Done Short Answer questions! 
+#> 
+#> ====
+#> ====
+#> ====
+#> Done Short Answer questions!
 #> ====
 #> T/F questions passed input: 2 
 #> T/F questions Passed: 2 
@@ -116,11 +114,10 @@ GIFTr::GIFTr(data = GIFTrData, questions = 3, answers = c(4:8),
 #> No question found : 0 
 #> No valid answer found: 0
 #> 
-#> ==== 
-#> ==== 
-#> ==== 
+#> ====
+#> ====
+#> ====
 #> Done T/F questions!
-#>  
 #> ====
 ```
 
