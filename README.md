@@ -5,6 +5,8 @@
 
 <!-- badges: start -->
 
+[![CRAN
+status](https://www.r-pkg.org/badges/version/GIFTr)](https://CRAN.R-project.org/package=GIFTr)
 [![Travis build
 status](https://travis-ci.org/omarelashkar/GIFTr.svg?branch=master)](https://travis-ci.org/omarelashkar/GIFTr)
 [![AppVeyor build

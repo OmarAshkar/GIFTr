@@ -9,30 +9,32 @@
 #' @param make_answer If TRUE, the first column of answers columns will be set as the right answer, Default: FALSE.
 #' @param verbose If TRUE, the functions will print to the console the statistics of writing the output, Default: TRUE
 #' @return None
-#' @details \code{mcq} function takes a dataframe with mcq questions and export a text file in 'MOODLE' GIFT format. The function automatically makes an mcq a single answer or multiple answers depends on asterisks present in the answers column. If you have additional column of question_type set to `mcq` you can also use \link{GIFTr} function which wraps all question generating functions.\cr\cr See Vignette and \link{GIFTrData} for demos.
+#' @details \code{mcq} function takes a dataframe with multiple choices questions(mcq) and export a text file in 'MOODLE' GIFT format. The function automatically makes an mcq a single answer or multiple answers depends on asterisks present in the answers column. If you have additional column of question_type set to `mcq` you can also use \link{GIFTr} function which wraps all question generating functions.\cr\cr See Vignette and \link{GIFTrData} for demos.
 #'
 #' @inheritSection GIFTr Formatting Your Data
-#' @section Formatting MCQ Questions: \subsection{Specifying mcq answer}{You can specify answers simply using asterisk in a the start on the answer. If you choose more than one answer, the function will generate a multiple answers mcq with every answer holds partial even credit. See \link{GIFTrData} for this usage. \cr\cr If you intend to \strong{use single answer only}, you might specify `make_answer` or `mcq_answer_column` to TRUE, this will consider the first answer column to be the answer. For example, if the answers are in columns c(5,9), the answers will be listed in the first column, 5. See \link{GIFTrData_2} for this usage.}
+#' @section Formatting Multiple Choices Questions: \subsection{Specifying mcq answer}{You can specify answers simply using asterisk in a the start on the answer. If you choose more than one answer, the function will generate a multiple answers mcq with every answer holds partial even credit. See \link{GIFTrData} for this usage. \cr\cr If you intend to \strong{use single answer only}, you might specify `make_answer` or `mcq_answer_column` to TRUE, this will consider the first answer column to be the answer. For example, if the answers are in columns c(5,9), the answers will be listed in the first column, 5. See \link{GIFTrData_2} for this usage.}
 #'
 #' @examples
-#' \donttest{
 #' #data with asterisk and multiple answer mcq(Q2 question)
 #' data(GIFTrData)
 #' mcqdata <- GIFTrData[which(GIFTrData$question_type == "mcq"),]
 #'
 #' mcq(data = mcqdata, questions = 3,
 #'  answers = c(4:8), categories = 1,
-#'  question_names = 2, output = "mcq_1.txt") #No make_answer argument, question_name specified
-#'  #mcq_1.txt created at current directory.
+#'  question_names = 2, output = file.path(tempdir(), "mcq.txt"))
+#'  #No make_answer argument, question_name specified
+#'  #write file "mcq.txt"in tempdir()
+#'
 #' #data with no atrisk and no multiple answer mcq
 #' mcqdata_2 <- GIFTrData_2[which(GIFTrData_2$question_type == "mcq"),]
 #'
 #' mcq(data = mcqdata_2, questions = 3,
 #'  answers = c(4:8), categories = 1,
 #'  question_names = 2, make_answer = TRUE,
-#'  output = "mcq_1.txt") #Answer is in column 4
-#'  #`mcq_1.txt` created at current directory.
-#'  }
+#'  output = file.path(tempdir(), "mcq_1.txt")) #Answer is in column 4
+#'  #write file "mcq_1.txt"in tempdir()
+#'
+#'
 #' @seealso
 #'  \code{\link[GIFTr]{GIFTr}}
 #' @rdname mcq
@@ -49,8 +51,10 @@ mcq <- function(data, questions, answers, categories = NULL, question_names = NU
         data <- q_name(data, questions)
         question_names <- "q_names"
     }
+    #encoding options
+    (oldops <- options(encoding = "UTF-8"))
+    on.exit(options(oldops))
 
-    options(encoding = "UTF-8")
     # total number of questions passed for mcq category
     n <- nrow(data)
     pass <- 0
@@ -156,7 +160,6 @@ mcq <- function(data, questions, answers, categories = NULL, question_names = NU
     }
 
     # end rows for-loop
-
     if(verbose)message(glue::glue("\n",
                        "MCQ questions input count: {n} \n",
                        "MCQ questions with single answer passed: {singleans} \n",

@@ -10,16 +10,15 @@
 #' Short answer question answers can be in single column or multiple columns. If an answer has not credit it will be given 100\% credit automatically. For example if the answer is 'statistics', it will be equivalent to '\%100\%statistics'. While '\%80\%Data Science' answer will take 80\% of the credit  \cr\cr For further illustration, check \link{GIFTrData}.
 #' @return None
 #' @examples
-#' \donttest{
 #' data(GIFTrData)
 #' #data with short answer question type
 #' shortans_data <- GIFTrData[which(GIFTrData$question_type == "short_ans"),]
 #'
 #' short_ans(data = shortans_data, questions = 3,
 #'  answers = c(4:8), categories = 1,
-#'  question_names = 2, output = "shortq.txt")
-#'  #shortq.txt created at current directory.
-#'  }
+#'  question_names = 2, output = file.path(tempdir(), "shortq.txt"))
+#'  #write file "shortq.txt" in tempdir()
+#'
 #' @seealso
 #'  \code{\link[GIFTr]{GIFTr}}
 #' @rdname short_ans
@@ -36,9 +35,11 @@ short_ans <- function(data, questions, answers, categories, question_names = NUL
         question_names <- "q_names"
     }
 
-    options(encoding = "UTF-8")
-    n <- nrow(data)
+    #encoding options
+    (oldops <- options(encoding = "UTF-8"))
+    on.exit(options(oldops))
 
+    n <- nrow(data)
     noq <- 0
     vans <- 0
     noans <- 0
@@ -81,6 +82,7 @@ short_ans <- function(data, questions, answers, categories, question_names = NUL
         }
 
     }  # loop end
+
 
     if(verbose)message(glue::glue("total short answer questions passed is {pass}. \n Valid answer: {vans} \n error in {noq + noans} \n {noq} no question has been found \n {noans} no valid answer has been found"))
 

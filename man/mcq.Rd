@@ -31,9 +31,9 @@ None
 Create GIFT file with single & multiple answers MCQs from a spreadsheet to be exported to LMS.
 }
 \details{
-\code{mcq} function takes a dataframe with mcq questions and export a text file in 'MOODLE' GIFT format. The function automatically makes an mcq a single answer or multiple answers depends on asterisks present in the answers column. If you have additional column of question_type set to `mcq` you can also use \link{GIFTr} function which wraps all question generating functions.\cr\cr See Vignette and \link{GIFTrData} for demos.
+\code{mcq} function takes a dataframe with multiple choices questions(mcq) and export a text file in 'MOODLE' GIFT format. The function automatically makes an mcq a single answer or multiple answers depends on asterisks present in the answers column. If you have additional column of question_type set to `mcq` you can also use \link{GIFTr} function which wraps all question generating functions.\cr\cr See Vignette and \link{GIFTrData} for demos.
 }
-\section{Formatting MCQ Questions}{
+\section{Formatting Multiple Choices Questions}{
  \subsection{Specifying mcq answer}{You can specify answers simply using asterisk in a the start on the answer. If you choose more than one answer, the function will generate a multiple answers mcq with every answer holds partial even credit. See \link{GIFTrData} for this usage. \cr\cr If you intend to \strong{use single answer only}, you might specify `make_answer` or `mcq_answer_column` to TRUE, this will consider the first answer column to be the answer. For example, if the answers are in columns c(5,9), the answers will be listed in the first column, 5. See \link{GIFTrData_2} for this usage.}
 }
 
@@ -48,7 +48,7 @@ Create GIFT file with single & multiple answers MCQs from a spreadsheet to be ex
 \subsection{Data columns}{The data passed would differ slightly according to question type, however generally you need to have: \enumerate{
 \item a column contains question. This cannot contain empty values
 \item answer(s) column(s). This may be multiple columns if you have multiple answers. If you mix single and multiple answer it is better to write the single answer in the first column. If you have \strong{only single answer MCQ and NO multiple answer MCQ}, you can set the answers without asterisk in the first column of the answers columns. More details in the vignette and below.
-\item a column specifying the type of question. The current supported questions are MCQ, numerical entry, true or false and short answer questions. The should be named 'mcq' , 'num_q' , 'tf_q' and 'short_ans' respectively.
+\item a column specifying the type of question. The current supported questions are multiple choices, numerical entry, true or false and short answer questions. The should be named 'mcq' , 'num_q' , 'tf_q' and 'short_ans' respectively.
 \item a column specifying categories and subcategories in the 'MOODLE' categories are important when you are preparing a quiz as you may want to specify certain proportions of inclusions. Categories and subcategories are spaced by forward slash like Categ1/subcateg1/subsubcateg1 ...etc.
 \item a column specifying question names. So you can easily enter a certain question names by like certain ID or keyword to make the questions easily on the system. however you don't need to worry about that as automatically if not set, the first 40 letter are set a question name.
 
@@ -58,24 +58,26 @@ Create GIFT file with single & multiple answers MCQs from a spreadsheet to be ex
 }
 
 \examples{
-\donttest{
 #data with asterisk and multiple answer mcq(Q2 question)
 data(GIFTrData)
 mcqdata <- GIFTrData[which(GIFTrData$question_type == "mcq"),]
 
 mcq(data = mcqdata, questions = 3,
  answers = c(4:8), categories = 1,
- question_names = 2, output = "mcq_1.txt") #No make_answer argument, question_name specified
- #mcq_1.txt created at current directory.
+ question_names = 2, output = file.path(tempdir(), "mcq.txt"))
+ #No make_answer argument, question_name specified
+ #write file "mcq.txt"in tempdir()
+
 #data with no atrisk and no multiple answer mcq
 mcqdata_2 <- GIFTrData_2[which(GIFTrData_2$question_type == "mcq"),]
 
 mcq(data = mcqdata_2, questions = 3,
  answers = c(4:8), categories = 1,
  question_names = 2, make_answer = TRUE,
- output = "mcq_1.txt") #Answer is in column 4
- #`mcq_1.txt` created at current directory.
- }
+ output = file.path(tempdir(), "mcq_1.txt")) #Answer is in column 4
+ #write file "mcq_1.txt"in tempdir()
+
+
 }
 \seealso{
 \code{\link[GIFTr]{GIFTr}}

@@ -1,5 +1,5 @@
 ---
-title: "Using GIFTr Package To Prepare MOODLE Quiz from Spreadsheet"
+title: "Using 'GIFTr' Package To Prepare 'MOODLE' Quiz from Spreadsheet"
 author: Omar I. Elashkar
 output: rmarkdown::html_vignette
 vignette: >
@@ -35,7 +35,7 @@ library(GIFTr)
 library(kableExtra)
 options(knitr.kable.NA = '')
 knitr::kable(head(GIFTrData , 0) , ) %>%
-  kable_styling(full_width = T)
+  kable_styling(full_width = TRUE)
 ```
 
 ### categories column
@@ -59,7 +59,7 @@ Like question text, answers can be formatted with HTML, markdown or LATEX.
 When you write MCQs answers you have the flexibility of marking more than one correct answer to be preceded by asterisk *. If you mark only one answer by asterisk, you will get an MCQ question of single answer type and this answer will hold 100% of credit. If you mark many answers, answer will take partial equally divided positive credit and the wrong answers will take equally divided negative credit. This is to prevent selecting all the answers to get 100% credit as MOODLE don't allow it automatically. <br/> Below is a whole example of a single and a multiple answer MCQ respectively. 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 knitr::kable(GIFTrData[c(1,2),]) %>%
-  kable_styling(full_width = T)
+  kable_styling(full_width = TRUE)
 ```
 <br/>
 
@@ -67,7 +67,7 @@ If you don't want to have a multiple answers MCQ and want to write **ONLY** sing
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 knitr::kable(GIFTrData_2[c(1),]) %>%
-  kable_styling(full_width = T)
+  kable_styling(full_width = TRUE)
 ```
 
 #### Numeric Entry
@@ -80,21 +80,21 @@ You can right single or multiple answers of numeric entry questions with ranges 
 Below are examples of numeric questions
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 knitr::kable(GIFTrData[which(GIFTrData$question_type == "num_q"),]) %>%
-  kable_styling(full_width = T)
+  kable_styling(full_width = TRUE)
 ```
 
 #### Short Answer Question
 You can use a single or multiple answers to be the answer with the same concept of partial credits of numeric questions, where no preceding credit is 100% and %90% is 90% ...etc.
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 knitr::kable(GIFTrData[which(GIFTrData$question_type == "short_ans"),]) %>%
-  kable_styling(full_width = T)
+  kable_styling(full_width = TRUE)
 ```
 
 #### True or False
-For true or false questions, you just right T or F in the first answer column.
+For true or false questions, you just right 'T' or 'F' in the first answer column.
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 knitr::kable(GIFTrData[which(GIFTrData$question_type == "tf_q"),]) %>%
-  kable_styling(full_width = T)
+  kable_styling(full_width = TRUE)
 ```
 
 #### Answer Feedback 
@@ -102,7 +102,7 @@ You can always add a feedback for any answer selected by adding # sign after the
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 knitr::kable(GIFTrData[c(1,9),c(4:8)]) %>%
-  kable_styling(full_width = T)
+  kable_styling(full_width = TRUE)
 ```
 
 
@@ -122,7 +122,7 @@ Here is how a full data may like.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 knitr::kable(GIFTrData) %>%
-  kable_styling(full_width = T)
+  kable_styling(full_width = TRUE)
 ```
 
 ## Import to R
@@ -149,18 +149,17 @@ str(GIFTrData)
 
 
 
-```{r setup}
+```{r}
+
 GIFTr::GIFTr(data = GIFTrData, question_names = 2, 
              questions = 3, answers = c(4:8), 
              categories = 1, question_type = 9,
-             output = 'quiz.txt')  
+            output = file.path(tempdir(), "quiz.txt"))  
+
 ```
 
-```{r message=FALSE, warning=FALSE, include=FALSE}
- file.remove("quiz.txt")
-```
 
-Now you have a file called `quiz.txt` in working directory that has the questions ready to be imported by MOODLE!
+Now you have a file called `quiz.txt` in temporary directory that has the questions ready to be imported by MOODLE. You can simply use only "quiz.txt" to make the file permanent in the home directory. 
 
 <br/>
 

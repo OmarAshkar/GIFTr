@@ -7,9 +7,9 @@
 #' @details \pkg{'GIFTr'} package is intended to reduce the time a course creator would
 #' take to make input question on 'MOODLE' without the pain of writing markup.\cr\cr
 #'\pkg{'GIFTr'} package is build on \href{https://docs.moodle.org/37/en/GIFT_format}{'MOODLE' guidelines}. The idea is simple, you create a spreadsheet in a special format, call \code{GIFTr} function, get a GIFT formatted file that can be imported by 'MOODLE' and other LMS systems. \cr
-#' \code{GIFTr} function is unique in that it gives you detailed \strong{\emph{statistics}} and can work with \strong{\emph{the 4 question types}} supported by \pkg{'GIFTr'} package. \code{question_type} argument is unique for \code{GIFTr} function in this package and must be passed to map the questions. The current supported question types are \strong{\code{\link{mcq}{MCQ}}, \code{\link{num_q}{numeric entry}}, \code{\link{tf_q}{true or talse}}, and \code{\link{short_ans}{short answer}}}questions.You can find more details on the individual functions details. \cr\cr 'GIFTr' supports basic markdown and GIFT syntax. See the vignette and sections below for complete documentation of formatting your data.
+#' \code{GIFTr} function is unique in that it gives you detailed \strong{\emph{statistics}} and can work with \strong{\emph{the 4 question types}} supported by \pkg{'GIFTr'} package. \code{question_type} argument is unique for \code{GIFTr} function in this package and must be passed to map the questions. The current supported question types are \strong{\code{\link{mcq}{multiple choices question}}, \code{\link{num_q}{numeric entry}}, \code{\link{tf_q}{true or talse}}, and \code{\link{short_ans}{short answer}}}questions.You can find more details on the individual functions details. \cr\cr 'GIFTr' supports basic markdown and GIFT syntax. See the vignette and sections below for complete documentation of formatting your data.
 #'
-#' @inheritSection mcq Formatting MCQ Questions
+#' @inheritSection mcq Formatting Multiple Choices Questions
 #' @inheritSection num_q Numeric Entry Questions Formatting
 #' @inheritSection tf_q True or False Questions Formatting
 #' @inheritSection short_ans Short Answer Questions Formatting
@@ -24,7 +24,7 @@
 #' \subsection{Data columns}{The data passed would differ slightly according to question type, however generally you need to have: \enumerate{
 #' \item a column contains question. This cannot contain empty values
 #' \item answer(s) column(s). This may be multiple columns if you have multiple answers. If you mix single and multiple answer it is better to write the single answer in the first column. If you have \strong{only single answer MCQ and NO multiple answer MCQ}, you can set the answers without asterisk in the first column of the answers columns. More details in the vignette and below.
-#' \item a column specifying the type of question. The current supported questions are MCQ, numerical entry, true or false and short answer questions. The should be named 'mcq' , 'num_q' , 'tf_q' and 'short_ans' respectively.
+#' \item a column specifying the type of question. The current supported questions are multiple choices, numerical entry, true or false and short answer questions. The should be named 'mcq' , 'num_q' , 'tf_q' and 'short_ans' respectively.
 #' \item a column specifying categories and subcategories in the 'MOODLE' categories are important when you are preparing a quiz as you may want to specify certain proportions of inclusions. Categories and subcategories are spaced by forward slash like Categ1/subcateg1/subsubcateg1 ...etc.
 #' \item a column specifying question names. So you can easily enter a certain question names by like certain ID or keyword to make the questions easily on the system. however you don't need to worry about that as automatically if not set, the first 40 letter are set a question name.
 #'
@@ -48,21 +48,23 @@
 #' @return None
 #'
 #' @examples
-#' \donttest{
-#'  data(GIFTrData)
-#'  str(GIFTrData)
+#' #' load Data and Check structure
+#' data(GIFTrData)
+#' str(GIFTrData)
 #'
-#'  GIFTr::GIFTr(data = GIFTrData, questions = 3,
+#' GIFTr::GIFTr(data = GIFTrData, questions = 3,
 #'  answers = c(4:8), categories = 1,
 #'  question_type = 9,
-#'  output = 'quiz.txt') #create 'quiz.txt output'
+#'  output = file.path(tempdir(), "quiz.txt"))
+#'  #write file"quiz.txt" in tempdir()
 #'
-#'  #Use `question_names` Column argument
 #'  GIFTr::GIFTr(data = GIFTrData, question_names = 2,
 #'  questions = 3, answers = c(4:8),
 #'  categories = 1, question_type = 9,
-#'  output = 'quiz2.txt') #create 'quiz2.txt output'
-#'  }
+#'  output = file.path(tempdir(), "quiz2.txt"))
+#'  #write file"quiz2.txt" in tempdir()
+#'
+#'
 #'
 #' @importFrom glue glue
 #' @export

@@ -22,16 +22,15 @@
 #' For example `122` and `\%50\%122:5`.}
 #' @return None
 #' @examples
-#' \donttest{
-#' #data with numeric entry questions
 #' data(GIFTrData)
+#' #data with numeric entry questions
 #' numq_data <- GIFTrData[which(GIFTrData$question_type == "num_q"),]
 #'
 #' num_q(data = numq_data, questions = 3,
 #'  answers = c(4:8), categories = 1,
-#'  question_names = 2, output = "numq.txt")
-#'  #numq.txt created at current directory.
-#'  }
+#'  question_names = 2, output = file.path(tempdir(), "numq.txt"))
+#'  #write file "numq.txt" in tempdir()
+#'
 #' @seealso
 #'  \code{\link[GIFTr]{GIFTr}}
 #' @rdname num_q
@@ -47,9 +46,11 @@ num_q <- function(data, questions, answers, categories, question_names = NULL, o
         question_names <- "q_names"
     }
 
-    options(encoding = "UTF-8")
-    n <- nrow(data)
+    #encoding options
+    (oldops <- options(encoding = "UTF-8"))
+    on.exit(options(oldops))
 
+    n <- nrow(data)
     noq <- 0
     noans <- 0
     pass <- 0

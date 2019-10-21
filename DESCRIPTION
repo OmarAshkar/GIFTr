@@ -7,9 +7,9 @@ Maintainer: Omar I. Elashkar <omar.ibrahim@miuegypt.edu.eg>
 Depends: R (>= 3.5.0)
 Imports: stringr, glue      
 Description: A framework and functions to create 'MOODLE' quizzes. 'GIFTr' takes dataframe of questions of
-    four types: mcq, numerical questions, true or false and short answer,and export a text 
+    four types: multiple choices, numerical, true or false and short answer questions, and exports a text 
     file formatted in 'MOODLE' GIFT format. You can prepare a spreadsheet in any software and import 
-    it in R to generate any number of questions with HTML, markdown and LATEX support.
+    it into R to generate any number of questions with 'HTML', 'markdown' and 'LaTeX' support.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

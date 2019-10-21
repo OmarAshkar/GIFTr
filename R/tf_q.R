@@ -10,16 +10,17 @@
 #' True or False answers is to be set in 1 column with letter 'T' or 'F' insensitive to the case.  \cr\cr For further illustration, check \link{GIFTrData}.
 #' @return None
 #' @examples
-#' \donttest{
 #' data(GIFTrData)
 #' #data with true or false question type
 #' tf_data <- GIFTrData[which(GIFTrData$question_type == "tf_q"),]
 #'
 #' tf_q(data = tf_data, questions = 3,
 #'  answers = c(4:8), categories = 1,
-#'  question_names = 2, output = "tfq.txt")
-#'  #tfq.txt created at current directory.
+#'  question_names = 2, output =  file.path(tempdir(), "tfq.txt")))
+#'  #write file "tfq.txt" in tempdir()
 #'  }
+#'
+#'
 #' @seealso
 #'  \code{\link[GIFTr]{GIFTr}}
 #' @rdname tf_q
@@ -35,8 +36,10 @@ tf_q <- function(data, questions, answers, categories, question_names = NULL, ou
         question_names <- "q_names"
     }
 
-    # Force encoding
-    options(encoding = "UTF-8")
+    #encoding options
+    (oldops <- options(encoding = "UTF-8"))
+    on.exit(options(oldops))
+
     # Total number of questions
     n <- nrow(data)
     noq <- 0

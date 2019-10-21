@@ -47,7 +47,7 @@ True or False answers is to be set in 1 column with letter 'T' or 'F' insensitiv
 \subsection{Data columns}{The data passed would differ slightly according to question type, however generally you need to have: \enumerate{
 \item a column contains question. This cannot contain empty values
 \item answer(s) column(s). This may be multiple columns if you have multiple answers. If you mix single and multiple answer it is better to write the single answer in the first column. If you have \strong{only single answer MCQ and NO multiple answer MCQ}, you can set the answers without asterisk in the first column of the answers columns. More details in the vignette and below.
-\item a column specifying the type of question. The current supported questions are MCQ, numerical entry, true or false and short answer questions. The should be named 'mcq' , 'num_q' , 'tf_q' and 'short_ans' respectively.
+\item a column specifying the type of question. The current supported questions are multiple choices, numerical entry, true or false and short answer questions. The should be named 'mcq' , 'num_q' , 'tf_q' and 'short_ans' respectively.
 \item a column specifying categories and subcategories in the 'MOODLE' categories are important when you are preparing a quiz as you may want to specify certain proportions of inclusions. Categories and subcategories are spaced by forward slash like Categ1/subcateg1/subsubcateg1 ...etc.
 \item a column specifying question names. So you can easily enter a certain question names by like certain ID or keyword to make the questions easily on the system. however you don't need to worry about that as automatically if not set, the first 40 letter are set a question name.
 
@@ -56,18 +56,6 @@ True or False answers is to be set in 1 column with letter 'T' or 'F' insensitiv
   }
 }
 
-\examples{
-\donttest{
-data(GIFTrData)
-#data with true or false question type
-tf_data <- GIFTrData[which(GIFTrData$question_type == "tf_q"),]
-
-tf_q(data = tf_data, questions = 3,
- answers = c(4:8), categories = 1,
- question_names = 2, output = "tfq.txt")
- #tfq.txt created at current directory.
- }
-}
 \seealso{
 \code{\link[GIFTr]{GIFTr}}
 }
