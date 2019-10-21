@@ -23,6 +23,12 @@ generate any number of questions with HTML, markdown and LATEX support.
 
 ## Installation
 
+from cran with:
+
+``` r
+install.packages("GIFTr")
+```
+
 from [GitHub](https://github.com/) with:
 
 ``` r
@@ -126,8 +132,9 @@ GIFTr::GIFTr(data = GIFTrData, questions = 3, answers = c(4:8),
 The generated file can be imported easily by MOODLE or any other LMS
 that supports GIFT.
 
-For further documentation instructions, check the package vignette and
-documentation.
+For further documentation instructions, check the package
+[vignette](https://cran.r-project.org/web/packages/GIFTr/vignettes/GIFTr_tutorial.html)
+and documentation.
 
 ``` r
 #open vingette

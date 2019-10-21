@@ -25,6 +25,11 @@ knitr::opts_chunk$set(
 
 ## Installation
 
+from cran with:
+
+```r
+install.packages("GIFTr")
+```
 
 from [GitHub](https://github.com/) with:
 
@@ -55,7 +60,7 @@ file.remove("quiz.txt")
 
 The generated file can be imported easily by MOODLE or any other LMS that supports GIFT.
 
-For further documentation instructions, check the package vignette and documentation.
+For further documentation instructions, check the package [vignette](https://cran.r-project.org/web/packages/GIFTr/vignettes/GIFTr_tutorial.html) and documentation.
 
 ```r
 #open vingette
